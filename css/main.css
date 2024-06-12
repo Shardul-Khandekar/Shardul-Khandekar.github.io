@@ -260,7 +260,7 @@ h5 {
 
 #work {
   background-color:#1D1D1D;
-  min-height:70vh; /* This is the height of the box*/
+  min-height:100vh; /* This is the height of the box*/
   margin:0;
   font-family: 'Droid Sans', sans-serif;
   position: relative;
@@ -270,7 +270,7 @@ h5 {
   content: '';
   position: absolute;
   top: 100px;
-  bottom: 100px;
+  bottom: 40%;
   left: 50%;
   width: 4px;
   background-color: #fff;
