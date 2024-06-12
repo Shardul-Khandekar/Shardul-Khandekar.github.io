@@ -260,7 +260,7 @@ h5 {
 
 #work {
   background-color:#1D1D1D;
-  min-height:100vh; /* This is the height of the box*/
+  min-height:70vh; /* This is the height of the box*/
   margin:0;
   font-family: 'Droid Sans', sans-serif;
   position: relative;
@@ -269,14 +269,20 @@ h5 {
 #work:before {
   content: '';
   position: absolute;
-  top: 50px;
-  bottom: 30px;
+  top: 100px;
+  bottom: 100px;
   left: 50%;
   width: 4px;
   background-color: #fff;
   transform: translateX(-50%);
-  height: calc(81% - 50px); /* This is the height of the line*/
-  top: 40px;
+  height: calc(63% - 50px); /* This is the height of the line*/
+  top: 100px; /* This is the starting point of the line*/
+}
+
+.section-title-work {
+  padding-top: 30px; /* Adjust as necessary */
+  margin-bottom: 60px;
+  font-size: 32px;
 }
 
 .entries {
@@ -300,7 +306,7 @@ h5 {
 }
 
 .title {
-  font-size: 32px;
+  font-size: 26px;
   margin-bottom: 12px;
   position: relative;
   color: #fff;
