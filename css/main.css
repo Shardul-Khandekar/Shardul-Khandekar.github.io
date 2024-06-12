@@ -273,7 +273,7 @@ h5 {
   bottom: 40%;
   left: 50%;
   width: 4px;
-  background-color: #fff;
+  background-color: #1D1D1D;
   transform: translateX(-50%);
   height: calc(67% - 50px); /* This is the height of the line*/
   top: 100px; /* This is the starting point of the line*/
