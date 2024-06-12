@@ -69,14 +69,22 @@ body {
   margin: 10px;
 }
 
+.section-title-about {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
 #about {
   width: 90%;
   margin: 0 auto;
   max-width: 960px;
+  text-align: center;
 }
 
 .personaldetails {
-  text-align: center;
+  text-align: left;
   margin: 5px auto;
 }
 
@@ -98,149 +106,104 @@ body {
   margin: 10px;
 }
 
-.work-experience {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.experience-list {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-}
-
-h4 {
-  color: #0066cc;
+#work {
+  background-color: #1d1d1d;
+  min-height: 100vh;
   margin: 0;
+  font-family: "Droid Sans", sans-serif;
+  position: relative; /* Ensure the position is relative */
 }
 
-.company {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.duration {
-  color: #777;
-  margin-bottom: 5px;
-}
-
-.description {
-  margin: 0;
-}
-
-.projects {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.project {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.project img {
-  max-width: 300px;
-  border-radius: 8px;
-  margin-right: 20px;
-}
-
-.project-description {
-  flex: 1;
-}
-
-.project-description h2 {
-  margin: 0;
-  color: #333;
-}
-
-.project-description p {
-  color: #777;
-}
-
-/* Alternate position for the second project */
-.project:nth-child(even) {
-  flex-direction: row-reverse;
-}
-
-.publications {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.publication-card {
-  position: relative;
-  width: 100%;
-  height: 200px;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.front,
-.back {
-  position: absolute;
+#work:before {
+  content: "";
+  position: absolute; /* Position relative to the #work container */
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  backface-visibility: hidden;
-  transition: transform 0.5s;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 4px;
+  background-color: #fff;
 }
 
-.back {
-  transform: rotateY(180deg);
+.entries {
+  width: calc(100% - 80px);
+  max-width: 800px;
+  margin: auto;
+  position: relative;
+  left: -5px;
 }
 
-.publication-card:hover .front {
-  transform: rotateY(180deg);
-}
+.entry {
+  width: calc(50% - 80px);
+  float: left;
+  padding: 20px;
+  clear: both;
+  text-align: right;
+  &:not(:first-child) {
+    margin-top: -60px;
+  }
+  .title {
+    font-size: 32px;
+    margin-bottom: 12px;
+    position: relative;
+    color: #fff;
+    &:before {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border: 4px solid #ffffff;
+      background-color: #1d1d1d;
+      border-radius: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      right: -73px;
+      z-index: 1000;
+    }
+    &.big:before {
+      width: 24px;
+      height: 24px;
+      transform: translate(8px, -50%);
+    }
+  }
+  .body {
+    color: #aaa;
+    p {
+      line-height: 1.4em;
+    }
+  }
 
-.publication-card:hover .back {
-  transform: rotateY(0);
+  &:nth-child(2n) {
+    text-align: left;
+    float: right;
+    .title {
+      &:before {
+        left: -63px;
+      }
+      &.big:before {
+        transform: translate(-8px, -50%);
+      }
 }
-
-h5,
-p {
-  margin: 0;
-  padding: 10px;
-  color: #333;
-}
-
-h5 {
-  font-size: 20px;
 }
 
 .description {
   font-size: 14px;
   color: #777;
+    }
+
+.description {
+  font-size: 14px;
+  color: #777;
 }
+}
+
+.read-more {
+  display: block;
+  margin-top: auto;
+  text-align: center;
+  text-decoration: none;
+  color: #0066cc;
+  }
 
 .read-more {
   display: block;
