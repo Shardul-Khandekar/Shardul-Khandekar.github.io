@@ -151,116 +151,150 @@ h4 {
   margin: 0;
 }
 
-.projects {
-  max-width: 800px;
+/* Projects Section */
+#projects {
+  background-color: #f9f9f9;
+  padding: 60px 0;
+}
+
+.projects-container {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 0 20px;
 }
 
-.project {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.project img {
-  max-width: 300px;
-  border-radius: 8px;
-  margin-right: 20px;
-}
-
-.project-description {
-  flex: 1;
-}
-
-.project-description h2 {
-  margin: 0;
+.section-title {
+  text-align: center;
+  font-size: 36px;
   color: #333;
+  margin-bottom: 40px;
 }
 
-.project-description p {
-  color: #777;
-}
-
-/* Alternate position for the second project */
-.project:nth-child(even) {
-  flex-direction: row-reverse;
-}
-
-.publications {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+.projects-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
 }
 
-.publication-card {
-  position: relative;
-  width: 100%;
-  height: 200px;
+.project-card {
   background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
-  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  position: relative;
 }
 
-.front,
-.back {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  backface-visibility: hidden;
-  transition: transform 0.5s;
+.project-card:hover {
+  transform: translateY(-10px);
 }
 
-.back {
-  transform: rotateY(180deg);
+.project-content {
+  padding: 20px;
 }
 
-.publication-card:hover .front {
-  transform: rotateY(180deg);
-}
-
-.publication-card:hover .back {
-  transform: rotateY(0);
-}
-
-h5,
-p {
-  margin: 0;
-  padding: 10px;
+.project-content h2 {
+  font-size: 24px;
   color: #333;
+  margin-bottom: 10px;
 }
 
-h5 {
-  font-size: 20px;
-}
-
-.description {
-  font-size: 14px;
+.project-content p {
+  font-size: 16px;
   color: #777;
+  margin-bottom: 20px;
 }
 
-.read-more {
-  display: block;
-  margin-top: auto;
-  text-align: center;
+.project-link {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border-radius: 5px;
   text-decoration: none;
-  color: #0066cc;
+  transition: background-color 0.3s;
+}
+
+.project-link:hover {
+  background-color: #0056b3;
+}
+
+/* Publications Section */
+#publications {
+  background-color: #fff;
+  padding: 60px 0;
+}
+
+.publications-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+#projects.section-title {
+  text-align: center;
+  font-size: 36px;
+  color: #000;
+  margin-bottom: 40px;
+}
+
+.publications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.publication-item {
+  display: flex;
+  align-items: flex-start;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.publication-item:hover {
+  transform: translateY(-10px);
+}
+
+.publication-content {
+  flex: 1;
+}
+
+.publication-content h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.publication-content p {
+  font-size: 16px;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+.publication-link {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.publication-link:hover {
+  background-color: #0056b3;
 }
 
 #work {
   background-color:#1D1D1D;
-  min-height:100vh; /* This is the height of the box*/
+  min-height:80vh; /* This is the height of the box*/
   margin:0;
   font-family: 'Droid Sans', sans-serif;
   position: relative;
