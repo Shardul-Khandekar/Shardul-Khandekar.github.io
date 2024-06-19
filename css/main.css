@@ -294,7 +294,7 @@ h4 {
 
 #work {
   background-color:#1D1D1D;
-  min-height:80vh; /* This is the height of the box*/
+  min-height:90vh; /* This is the height of the box*/
   margin:0;
   font-family: 'Droid Sans', sans-serif;
   position: relative;
