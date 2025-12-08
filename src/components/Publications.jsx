@@ -47,16 +47,12 @@ const PUBLICATIONS = [
 
 function PubCard({ p }) {
   return (
-    <a
-      href={p.url}
-      target="_blank"
-      rel="noreferrer"
+    <div
       className={[
-        // compact, clean card style matching Projects
         "group relative rounded-2xl border border-slate-200 bg-white",
         "shadow-[0_1px_0_0_rgba(15,23,42,0.02)]",
         "transition hover:shadow-md hover:-translate-y-[1px]",
-        "p-4 sm:p-5 flex flex-col justify-between h-[14rem]", // reduced height
+        "p-4 sm:p-5 flex flex-col justify-between h-[14rem]",
       ].join(" ")}
     >
       {/* Accent bar */}
@@ -93,14 +89,25 @@ function PubCard({ p }) {
           </span>
           <span>Read</span>
         </div>
-        <span className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-slate-200 text-slate-500 group-hover:text-blue-600 group-hover:border-blue-300 transition">
+
+        {/* Only arrow is clickable */}
+        <a
+          href={p.url}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex h-7 w-7 items-center justify-center rounded-full 
+                     border border-slate-200 text-slate-500 
+                     group-hover:text-blue-600 group-hover:border-blue-300 transition"
+          aria-label={`Open ${p.title}`}
+          title="Open publication"
+        >
           ↗
-        </span>
+        </a>
       </div>
 
       {/* Hover ring */}
       <span className="pointer-events-none absolute inset-0 rounded-2xl ring-0 ring-blue-400/0 group-hover:ring-2 group-hover:ring-blue-400/30 transition" />
-    </a>
+    </div>
   );
 }
 
