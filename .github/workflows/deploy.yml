@@ -37,6 +37,10 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
+      
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
 
   deploy:
     needs: build
