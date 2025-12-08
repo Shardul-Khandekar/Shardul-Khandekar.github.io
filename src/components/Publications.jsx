@@ -2,82 +2,119 @@ import React from "react";
 
 const PUBLICATIONS = [
   {
-    id: "emotion-recognition",
+    id: "emotion",
     title: "AI based Emotion Recognition",
+    venue: "IGI Global",
+    year: "2023",
     blurb:
-      "Implemented back-propagation to classify six human emotions with >90% accuracy.",
+      "Back-propagation classifier recognizing six human emotions with >90% accuracy.",
     url: "https://www.igi-global.com/chapter/ai-based-emotion-recognition/317492",
-    badge: "IGI Global",
+    accent: "from-indigo-500 to-blue-500",
   },
   {
-    id: "cnn-industry4",
+    id: "cnn",
     title:
       "Analysis of Convolution Neural Network Architectures and Their Applications in Industry 4.0",
+    venue: "Taylor & Francis",
+    year: "2021",
     blurb:
-      "Layered analysis of CNN architectures and computer-vision use cases for Industry 4.0.",
+      "Layered survey of CNN architectures and computer-vision use cases for Industry 4.0.",
     url: "https://www.taylorfrancis.com/chapters/edit/10.1201/9781003143505-7/analysis-convolution-neural-network-architectures-applications-industry-4-0-gaurav-bansod-shardul-khandekar-soumya-khurana",
-    badge: "Taylor & Francis",
+    accent: "from-emerald-500 to-teal-500",
   },
   {
-    id: "iot-reliability",
+    id: "iot",
     title:
-      "Reliability and availability of IoT devices in resource-constrained environments",
+      "Reliability & Availability of IoT Devices in Resource-Constrained Environments",
+    venue: "Emerald (IJQRM)",
+    year: "2022",
     blurb:
-      "Time-complexity and performance of edge devices under security algorithms such as AES-128.",
+      "Complexity and performance evaluation of edge devices under AES-128 cryptographic workloads.",
     url: "https://www.emerald.com/insight/content/doi/10.1108/IJQRM-09-2021-0334/full/html",
-    badge: "Emerald",
+    accent: "from-fuchsia-500 to-pink-500",
+  },
+  {
+    id: "pulse",
+    title: "Computer Vision-Based Contactless Cardiac Pulse Estimation",
+    venue: "Springer",
+    year: "2024",
+    blurb:
+      "rPPG-based pulse monitoring using webcam input; 96–98% accuracy across demographic conditions.",
+    url: "#",
+    accent: "from-orange-400 to-amber-500",
   },
 ];
 
 function PubCard({ p }) {
   return (
-    <article
+    <a
+      href={p.url}
+      target="_blank"
+      rel="noreferrer"
       className={[
-        "rounded-2xl bg-white border border-slate-200",
+        // compact, clean card style matching Projects
+        "group relative rounded-2xl border border-slate-200 bg-white",
         "shadow-[0_1px_0_0_rgba(15,23,42,0.02)]",
-        "p-6 flex flex-col gap-3 transition hover:-translate-y-[1px] hover:shadow-md",
+        "transition hover:shadow-md hover:-translate-y-[1px]",
+        "p-4 sm:p-5 flex flex-col justify-between h-[14rem]", // reduced height
       ].join(" ")}
     >
-      <div className="flex items-center gap-2">
-        <div className="h-7 w-7 rounded-md bg-slate-100 ring-1 ring-slate-200 grid place-items-center">
-          <span className="text-[11px] font-semibold text-slate-700">PUB</span>
+      {/* Accent bar */}
+      <div
+        className={[
+          "absolute top-0 left-0 h-1 w-full rounded-t-2xl bg-gradient-to-r",
+          p.accent,
+        ].join(" ")}
+      />
+
+      {/* Content */}
+      <div>
+        <div className="flex items-center gap-2 text-xs mb-1.5">
+          <span className="font-medium text-slate-600 px-2 py-0.5 rounded-full border border-slate-200 bg-slate-50">
+            {p.venue}
+          </span>
+          <span className="text-slate-300">•</span>
+          <span className="text-slate-500">{p.year}</span>
         </div>
-        <span className="text-sm font-medium text-slate-500">{p.badge}</span>
+
+        <h3 className="text-[15px] font-semibold text-slate-900 leading-snug line-clamp-2">
+          {p.title}
+        </h3>
+        <p className="mt-1 text-[13px] text-slate-600 leading-relaxed line-clamp-3">
+          {p.blurb}
+        </p>
       </div>
 
-      <h3 className="text-lg md:text-xl font-semibold text-slate-900 leading-snug">
-        {p.title}
-      </h3>
-
-      <p className="text-slate-600 leading-relaxed">“{p.blurb}”</p>
-
-      <div className="pt-2">
-        <a
-          href={p.url}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-1 text-slate-700 hover:text-slate-900 font-medium"
-        >
-          Read → <span aria-hidden>↗</span>
-        </a>
+      {/* Footer */}
+      <div className="pt-2 mt-3 border-t border-slate-100 flex items-center justify-between">
+        <div className="flex items-center gap-2 text-[12px] text-slate-600">
+          <span className="inline-flex h-5 w-5 items-center justify-center rounded-md border border-slate-200 bg-slate-50 font-semibold text-[10px] text-slate-700">
+            PUB
+          </span>
+          <span>Read</span>
+        </div>
+        <span className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-slate-200 text-slate-500 group-hover:text-blue-600 group-hover:border-blue-300 transition">
+          ↗
+        </span>
       </div>
-    </article>
+
+      {/* Hover ring */}
+      <span className="pointer-events-none absolute inset-0 rounded-2xl ring-0 ring-blue-400/0 group-hover:ring-2 group-hover:ring-blue-400/30 transition" />
+    </a>
   );
 }
 
 export default function Publications() {
   return (
-    <section id="publications" className="bg-white mt-0 mb-32">
-      <div className="max-w-6xl mx-auto px-5 md:px-8 py-12 md:py-16">
-        <h2 className="text-[40px] md:text-[56px] leading-none font-extrabold tracking-tight mb-8 text-[#2b62ff]">
-          Publications
-        </h2>
+    <section id="publications" className="max-w-6xl mx-auto px-5 md:px-8 mt-24 md:mt-28">
+      <h2 className="text-[40px] md:text-[56px] leading-none font-extrabold tracking-tight mb-6 text-[#2b62ff]">
+        Publications
+      </h2>
 
-        <div className="grid gap-5 sm:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {PUBLICATIONS.map((p) => (
-            <PubCard key={p.id} p={p} />
-          ))}
-        </div>
+      <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2">
+        {PUBLICATIONS.map((p) => (
+          <PubCard key={p.id} p={p} />
+        ))}
       </div>
     </section>
   );
