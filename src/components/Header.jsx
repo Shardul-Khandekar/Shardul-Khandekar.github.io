@@ -5,11 +5,11 @@ export default function Header() {
         <a href="#top" className="font-semibold text-slate-900">
           Shardul Khandekar
         </a>
-
         <nav className="flex items-center gap-8 text-slate-600">
-          <a href="#projects" className="hover:text-slate-900 transition">Projects</a>
-          <a href="#experience" className="hover:text-slate-900 transition">Experience</a>
-          <a href="#contact" className="hover:text-slate-900 transition">Contact</a>
+          <a href="#experience"   className="hover:text-slate-900 transition">Experience</a>
+          <a href="#projects"     className="hover:text-slate-900 transition">Projects</a>
+          <a href="#publications" className="hover:text-slate-900 transition">Publications</a>
+          <a href="#contact"      className="hover:text-slate-900 transition">Contact</a>
         </nav>
       </div>
     </header>
