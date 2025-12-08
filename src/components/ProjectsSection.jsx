@@ -156,7 +156,7 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="max-w-6xl mx-auto px-5 md:px-8 mt-32 md:mt-36 mb-32"
+      className="max-w-6xl mx-auto px-5 md:px-8 mt-32 md:mt-36 mb-16"
     >
       <h2 className="text-[40px] md:text-[56px] leading-none font-extrabold tracking-tight mb-6 text-[#2b62ff]">
         Projects
@@ -168,6 +168,8 @@ export default function ProjectsSection() {
           "grid-cols-1 sm:grid-cols-2 md:grid-cols-12",
           "auto-rows-[18rem]", // tall enough rows; tall cards span 2 rows cleanly
           "pb-24",
+          "auto-rows-[18rem]",
+          "pb-8",
         ].join(" ")}
       >
         {PROJECTS.map((p) => (

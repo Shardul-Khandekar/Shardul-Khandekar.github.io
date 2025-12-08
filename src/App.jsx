@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import ExperienceNotes from "./components/ExperienceNotes";
 import ProjectsSection from "./components/ProjectsSection";
+import Publications from "./components/Publications";
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
       <Hero />
       <ExperienceNotes />
       <ProjectsSection />
+      <Publications />
     </div>
   );
 }
