@@ -4,7 +4,7 @@ import Hero from "./components/Hero";
 import ExperienceNotes from "./components/ExperienceNotes";
 import ProjectsSection from "./components/ProjectsSection";
 import Publications from "./components/Publications";
-import Credentials from "./components/Credentials"; // Ensure this import exists
+import Credentials from "./components/Credentials";
 import Contact from "./components/Contact";
 
 function GeometricShapes() {
@@ -29,17 +29,17 @@ function BackgroundGrid() {
   );
 }
 
-/** UPDATED SIDE NAV LOGIC */
+/** UPDATED SIDE NAV */
 function SideNav() {
   const [activeSection, setActiveSection] = useState("top");
 
-  // ADDED "education" to the list here
   const SECTIONS = [
     { id: "top", label: "Home" },
     { id: "experience", label: "Experience" },
     { id: "projects", label: "Projects" },
+    // ADDED CREDENTIALS HERE (Mapping to the #education ID we set in Credentials.jsx)
+    { id: "education", label: "Credentials" }, 
     { id: "publications", label: "Publications" },
-    { id: "education", label: "Education" }, // Points to the ID in Credentials.jsx
     { id: "contact", label: "Contact" },
   ];
 
@@ -67,32 +67,39 @@ function SideNav() {
     };
 
     window.addEventListener("scroll", handleScroll);
-    // Initial check
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <div className="fixed right-8 top-1/2 z-50 hidden -translate-y-1/2 flex-col gap-4 xl:flex">
+    <div className="fixed right-8 top-1/2 z-50 hidden -translate-y-1/2 flex-col gap-2 xl:flex">
       {SECTIONS.map((section) => {
         const isActive = activeSection === section.id;
         return (
           <a
             key={section.id}
             href={`#${section.id}`}
-            className="group relative flex items-center justify-end"
+            // Added 'group' and padding to make the hover target larger and more reliable
+            className="group relative flex items-center justify-end py-2 pl-8 pr-2"
             aria-label={`Scroll to ${section.label}`}
           >
+            {/* Label (Tooltip) 
+               - opacity-0 by default (Invisible)
+               - group-hover:opacity-100 (Visible on hover)
+               - whitespace-nowrap (Prevents text breaking)
+            */}
             <span
-              className={`absolute right-8 mr-2 rounded-md bg-slate-900 px-2 py-1 text-[10px] font-medium text-white shadow-lg transition-all duration-300 ${
-                isActive ? "opacity-100 translate-x-0" : "opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"
-              }`}
+              className={`absolute right-8 mr-4 rounded-md bg-slate-900 px-2 py-1 text-[10px] font-medium text-white shadow-lg transition-all duration-300 whitespace-nowrap
+                opacity-0 translate-x-2 
+                group-hover:opacity-100 group-hover:translate-x-0`}
             >
               {section.label}
             </span>
+
+            {/* The Dot Indicator */}
             <div
               className={`h-2 rounded-full transition-all duration-300 ${
-                isActive ? "w-8 bg-[#1a73e8]" : "w-2 bg-slate-300 hover:bg-slate-400"
+                isActive ? "w-8 bg-[#1a73e8]" : "w-2 bg-slate-300 group-hover:bg-slate-400"
               }`}
             />
           </a>
@@ -115,13 +122,11 @@ export default function App() {
           <Hero />
           <ExperienceNotes />
           <ProjectsSection />
-          <Publications />
           
-          {/* Added Credentials Section 
-            This component has id="education", so the nav link works
-          */}
+          {/* Credentials Section */}
           <Credentials />
           
+          <Publications />
           <Contact />
         </main>
       </div>

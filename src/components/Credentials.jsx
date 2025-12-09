@@ -64,7 +64,7 @@ const EDUCATION = [
   },
   {
     school: "Pune Institute of Computer Technology",
-    degree: "Bachelor of Engineering in IT",
+    degree: "Bachelor of Engineering in E&TC",
     year: "2017 — 2021",
   }
 ];

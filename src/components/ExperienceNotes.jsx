@@ -86,22 +86,22 @@ function NavItem({ job, active, onClick, onHover, onLeave }) {
       onClick={() => onClick(job.id)}
       onMouseEnter={() => onHover(job.id)}
       onMouseLeave={onLeave}
-      className={`group relative flex w-full flex-col items-start rounded-r-full py-4 pl-6 pr-4 text-left transition-all duration-200 focus:outline-none ${
+      className={`group relative flex w-full flex-col items-start rounded-r-full py-4 pl-6 pr-4 text-left transition-all duration-300 focus:outline-none ${
         active ? "bg-blue-50/50" : "hover:bg-slate-50"
       }`}
     >
       {active && (
-        <span className="absolute left-0 top-1/2 h-8 w-1 -translate-y-1/2 rounded-r-md bg-[#1a73e8]" />
+        <span className="absolute left-0 top-1/2 h-8 w-1 -translate-y-1/2 rounded-r-md bg-[#1a73e8] transition-all duration-300" />
       )}
       <span
-        className={`text-sm font-bold tracking-tight transition-colors ${
+        className={`text-sm font-bold tracking-tight transition-colors duration-300 ${
           active ? "text-[#1a73e8]" : "text-slate-600 group-hover:text-slate-900"
         }`}
       >
         {job.company}
       </span>
       <span
-        className={`mt-1 text-xs transition-colors ${
+        className={`mt-1 text-xs transition-colors duration-300 ${
           active ? "text-blue-600/80" : "text-slate-400"
         }`}
       >
@@ -112,20 +112,27 @@ function NavItem({ job, active, onClick, onHover, onLeave }) {
 }
 
 function DetailView({ job }) {
+  // We use a small delay state to allow the component to mount "invisible" 
+  // and then transition to "visible".
   const [fade, setFade] = useState(false);
 
   useEffect(() => {
+    // Reset fade on job change
     setFade(false);
-    const timer = setTimeout(() => setFade(true), 50);
+    // Trigger fade-in after a tiny delay to ensure browser paints first
+    const timer = setTimeout(() => setFade(true), 20);
     return () => clearTimeout(timer);
   }, [job.id]);
 
   if (!job) return null;
 
   return (
+    // KEY CHANGE: added key={job.id}. This forces React to remount this div entirely.
+    // Increased duration to 500ms and used ease-in-out for smoothness.
     <div
-      className={`relative h-full w-full transition-opacity duration-300 ease-out ${
-        fade ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+      key={job.id} 
+      className={`relative h-full w-full transition-all duration-500 ease-in-out ${
+        fade ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
       }`}
     >
       <div className="mb-6 flex flex-col items-start justify-between border-b border-slate-100 pb-6 sm:flex-row sm:items-center">
@@ -148,7 +155,12 @@ function DetailView({ job }) {
       <div className="space-y-6">
         <ul className="space-y-3">
           {job.bullets.map((b, i) => (
-            <li key={i} className="group flex items-start gap-3">
+            // Staggered animation for bullets
+            <li 
+              key={i} 
+              className="group flex items-start gap-3 transition-opacity duration-500"
+              style={{ transitionDelay: `${i * 100}ms` }} // Slight delay for each bullet
+            >
               <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#1a73e8] shadow-sm transition-transform group-hover:scale-125" />
               <span className="text-[15px] leading-relaxed text-slate-600">
                 {b}
@@ -194,15 +206,10 @@ export default function ExperienceSection() {
         <div className="mt-4 h-1.5 w-20 rounded-full bg-[#1a73e8]" />
       </div>
 
-      {/* THE FIX:
-          1. 'grid': Replaces flexbox.
-          2. 'md:grid-cols-[20rem_1fr]': Forces two columns. The left is ALWAYS 20rem. The right is ALWAYS "the rest of the space" (1fr).
-          3. 'min-h-[600px]': Keeps the height stable.
-      */}
-     <div className="w-full h-[600px] overflow-hidden rounded-3xl bg-white shadow-xl shadow-slate-200/60 ring-1 ring-slate-900/5 grid grid-cols-1 md:grid-cols-[20rem_1fr]">
+      <div className="w-full min-h-[600px] overflow-hidden rounded-3xl bg-white shadow-xl shadow-slate-200/60 ring-1 ring-slate-900/5 grid grid-cols-1 md:grid-cols-[20rem_1fr]">
         
         {/* Left Sidebar */}
-        <div className="h-full overflow-y-auto border-b border-slate-100 bg-white py-4 md:border-b-0 md:border-r md:py-8">
+        <div className="border-b border-slate-100 bg-white py-4 md:border-b-0 md:border-r md:py-8">
           <div className="px-6 mb-4">
             <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400">
               Timeline
@@ -223,8 +230,7 @@ export default function ExperienceSection() {
         </div>
 
         {/* Right Content Area */}
-        {/* Note: In Grid, this naturally fills the 1fr column space */}
-        <div className="h-full overflow-y-auto bg-white p-6 md:p-12">
+        <div className="bg-white p-6 md:p-12">
           <DetailView job={activeJob} />
         </div>
       </div>
