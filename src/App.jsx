@@ -4,6 +4,7 @@ import Hero from "./components/Hero";
 import ExperienceNotes from "./components/ExperienceNotes";
 import ProjectsSection from "./components/ProjectsSection";
 import Publications from "./components/Publications";
+import Credentials from "./components/Credentials"; // Ensure this import exists
 import Contact from "./components/Contact";
 
 function GeometricShapes() {
@@ -31,38 +32,43 @@ function BackgroundGrid() {
 /** UPDATED SIDE NAV LOGIC */
 function SideNav() {
   const [activeSection, setActiveSection] = useState("top");
+
+  // ADDED "education" to the list here
   const SECTIONS = [
     { id: "top", label: "Home" },
     { id: "experience", label: "Experience" },
     { id: "projects", label: "Projects" },
     { id: "publications", label: "Publications" },
+    { id: "education", label: "Education" }, // Points to the ID in Credentials.jsx
     { id: "contact", label: "Contact" },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
-      // 1. Bottom of Page Detection (The Fix)
-      // If we are within 20px of the bottom, FORCE "contact" to be active.
+      // 1. Bottom of Page Detection
       if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 50) {
         setActiveSection("contact");
         return;
       }
 
-      // 2. Standard Scroll Detection
-      const scrollPosition = window.scrollY + 300;
+      // 2. Center Line Detection
+      const centerLine = window.scrollY + (window.innerHeight / 2);
       
       for (const section of SECTIONS) {
         const element = document.getElementById(section.id);
         if (element) {
           const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+          if (centerLine >= offsetTop && centerLine < offsetTop + offsetHeight) {
             setActiveSection(section.id);
+            break; 
           }
         }
       }
     };
 
     window.addEventListener("scroll", handleScroll);
+    // Initial check
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -110,6 +116,12 @@ export default function App() {
           <ExperienceNotes />
           <ProjectsSection />
           <Publications />
+          
+          {/* Added Credentials Section 
+            This component has id="education", so the nav link works
+          */}
+          <Credentials />
+          
           <Contact />
         </main>
       </div>
