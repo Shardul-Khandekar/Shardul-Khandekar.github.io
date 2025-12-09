@@ -213,7 +213,7 @@ export default function ExperienceSection() {
   );
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+    <section section id="experience" className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       {/* Google-style Header: Clean, heavy contrast, blue accent */}
       <div className="mb-12 md:mb-16">
         <h2 className="text-4xl font-extrabold tracking-tight text-slate-900 md:text-5xl">
