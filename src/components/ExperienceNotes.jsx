@@ -60,7 +60,6 @@ const JOBS = [
     location: "Pune, India",
     period: "February 2021 — August 2021",
     bullets: [
-      // EXPANDED CONTENT: Added technical details on "how" (affine transformations, noise injection)
       "Developed automated OpenCV data augmentation pipelines applying affine transformations, noise injection, and color jittering to 4,000+ images per class, significantly mitigating overfitting and increasing dataset diversity by 25%.",
       "Trained a ResNet-50 model with TensorFlow, achieving 92% accuracy on digit recognition.",
     ],
@@ -73,7 +72,6 @@ const JOBS = [
     location: "Pune, India",
     period: "June 2019 — July 2019",
     bullets: [
-      // EXPANDED CONTENT: Added details on the method (regex, extraction logic)
       "Architected a custom Python PDF parsing engine utilizing regex pattern matching to extract structured financial data from unstructured invoice files, accelerating the document processing lifecycle by 60% for a backlog of over 2,000+ legacy records.",
       "Collaborated in Agile sprints using JIRA and Confluence for documentation.",
     ],
@@ -114,21 +112,31 @@ function NavItem({ job, active, onClick, onHover, onLeave }) {
 }
 
 function DetailView({ job }) {
+  // Use state to trigger the "Mount" animation
   const [fade, setFade] = useState(false);
 
   useEffect(() => {
+    // Reset to invisible
     setFade(false);
-    const timer = setTimeout(() => setFade(true), 20);
+    
+    // Trigger the enter animation slightly faster (10ms) to feel responsive
+    const timer = setTimeout(() => setFade(true), 10);
     return () => clearTimeout(timer);
   }, [job.id]);
 
   if (!job) return null;
 
   return (
+    // THE GOOGLE TOUCH: 
+    // 1. duration-700: Slower, more majestic.
+    // 2. ease-[cubic-bezier(0.2,0.8,0.2,1)]: The "Soft Landing" curve.
+    // 3. blur-0 vs blur-sm: Adds a subtle focus effect as it slides in.
     <div
       key={job.id} 
-      className={`relative h-full w-full transition-all duration-500 ease-in-out ${
-        fade ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+      className={`relative h-full w-full transition-all duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${
+        fade 
+          ? "opacity-100 translate-y-0 blur-0" 
+          : "opacity-0 translate-y-8 blur-sm"
       }`}
     >
       <div className="mb-6 flex flex-col items-start justify-between border-b border-slate-100 pb-6 sm:flex-row sm:items-center">
@@ -153,8 +161,10 @@ function DetailView({ job }) {
           {job.bullets.map((b, i) => (
             <li 
               key={i} 
-              className="group flex items-start gap-3 transition-opacity duration-500"
-              style={{ transitionDelay: `${i * 100}ms` }}
+              className="group flex items-start gap-3 transition-opacity duration-700"
+              style={{ 
+                transitionDelay: `${100 + (i * 50)}ms` // Tighter stagger for a snappier feel
+              }}
             >
               <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#1a73e8] shadow-sm transition-transform group-hover:scale-125" />
               <span className="text-[15px] leading-relaxed text-slate-600">
@@ -201,14 +211,14 @@ export default function ExperienceSection() {
         <div className="mt-4 h-1.5 w-20 rounded-full bg-[#1a73e8]" />
       </div>
 
+      {/* Grid Layout to Ensure Stability */}
       <div className="w-full min-h-[500px] overflow-hidden rounded-3xl bg-white shadow-xl shadow-slate-200/60 ring-1 ring-slate-900/5 grid grid-cols-1 md:grid-cols-[20rem_1fr]">
         
         {/* Left Sidebar */}
         <div className="border-b border-slate-100 bg-white py-4 md:border-b-0 md:border-r md:py-8">
           <div className="px-6 mb-4">
-            <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400">
-              Timeline
-            </h3>
+            {/* UPDATED LABEL: "CAREER HISTORY" */}
+
           </div>
           <div className="space-y-1 pr-4">
             {JOBS.map((job) => (
