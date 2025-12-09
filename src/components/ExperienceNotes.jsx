@@ -1,6 +1,5 @@
 import React, { useMemo, useState, useEffect } from "react";
 
-/** Data - Kept exactly as provided */
 const JOBS = [
   {
     id: "theorem-ce",
@@ -80,9 +79,6 @@ const JOBS = [
   },
 ];
 
-/** * Left Row - Google Material Nav Item Style 
- * Uses a pill-shape indicator and subtle typography changes.
- */
 function NavItem({ job, active, onClick, onHover, onLeave }) {
   return (
     <button
@@ -94,11 +90,9 @@ function NavItem({ job, active, onClick, onHover, onLeave }) {
         active ? "bg-blue-50/50" : "hover:bg-slate-50"
       }`}
     >
-      {/* Active Indicator Line (The "Google Blue" Accent) */}
       {active && (
         <span className="absolute left-0 top-1/2 h-8 w-1 -translate-y-1/2 rounded-r-md bg-[#1a73e8]" />
       )}
-
       <span
         className={`text-sm font-bold tracking-tight transition-colors ${
           active ? "text-[#1a73e8]" : "text-slate-600 group-hover:text-slate-900"
@@ -117,11 +111,7 @@ function NavItem({ job, active, onClick, onHover, onLeave }) {
   );
 }
 
-/** * Right Detail - Google Material Surface Style
- * Clean typography, chips for tech, spacious layout.
- */
 function DetailView({ job }) {
-  // Simple key-based animation trigger
   const [fade, setFade] = useState(false);
 
   useEffect(() => {
@@ -134,11 +124,10 @@ function DetailView({ job }) {
 
   return (
     <div
-      className={`relative h-full transition-opacity duration-300 ease-out ${
+      className={`relative h-full w-full transition-opacity duration-300 ease-out ${
         fade ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
       }`}
     >
-      {/* Header Section */}
       <div className="mb-6 flex flex-col items-start justify-between border-b border-slate-100 pb-6 sm:flex-row sm:items-center">
         <div>
           <h3 className="text-2xl font-bold tracking-tight text-slate-900">
@@ -156,12 +145,10 @@ function DetailView({ job }) {
         </div>
       </div>
 
-      {/* Content Section */}
       <div className="space-y-6">
         <ul className="space-y-3">
           {job.bullets.map((b, i) => (
             <li key={i} className="group flex items-start gap-3">
-              {/* Custom Bullet point - Google Blue Dot */}
               <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#1a73e8] shadow-sm transition-transform group-hover:scale-125" />
               <span className="text-[15px] leading-relaxed text-slate-600">
                 {b}
@@ -170,7 +157,6 @@ function DetailView({ job }) {
           ))}
         </ul>
 
-        {/* Tech Stack Chips */}
         <div className="pt-2">
           <h4 className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">
             Technologies
@@ -191,30 +177,16 @@ function DetailView({ job }) {
   );
 }
 
-/** Main Experience Section */
 export default function ExperienceSection() {
   const [selectedId, setSelectedId] = useState(JOBS[0].id);
   const [hoverId, setHoverId] = useState(null);
-
-  // If hovering, show that one, otherwise show selected
-  // Note: For a "pinned" interaction, usually clicking locks it.
-  const activeId = hoverId || selectedId;
-  
-  // We prioritize the click (selectedId) for the main view content to avoid flickering
-  // But we use hoverId to highlight the list items.
-  // Actually, for better UX, let's keep the content locked to click, 
-  // but allow hover to show a preview state if desired. 
-  // To keep it simple and stable like Google Docs sidebar:
-  // Click changes content. Hover just highlights the button.
-  
   const activeJob = useMemo(
     () => JOBS.find((j) => j.id === selectedId),
     [selectedId]
   );
 
   return (
-    <section section id="experience" className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-      {/* Google-style Header: Clean, heavy contrast, blue accent */}
+    <section id="experience" className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <div className="mb-12 md:mb-16">
         <h2 className="text-4xl font-extrabold tracking-tight text-slate-900 md:text-5xl">
           Work Experience
@@ -222,11 +194,15 @@ export default function ExperienceSection() {
         <div className="mt-4 h-1.5 w-20 rounded-full bg-[#1a73e8]" />
       </div>
 
-      {/* Main Card Container - Mimics a Google Cloud Console Card */}
-      <div className="min-h-[600px] overflow-hidden rounded-3xl bg-white shadow-xl shadow-slate-200/60 ring-1 ring-slate-900/5 md:flex">
+      {/* THE FIX:
+          1. 'grid': Replaces flexbox.
+          2. 'md:grid-cols-[20rem_1fr]': Forces two columns. The left is ALWAYS 20rem. The right is ALWAYS "the rest of the space" (1fr).
+          3. 'min-h-[600px]': Keeps the height stable.
+      */}
+     <div className="w-full h-[600px] overflow-hidden rounded-3xl bg-white shadow-xl shadow-slate-200/60 ring-1 ring-slate-900/5 grid grid-cols-1 md:grid-cols-[20rem_1fr]">
         
-        {/* Left Sidebar / Navigation */}
-        <div className="w-full shrink-0 border-b border-slate-100 bg-white py-4 md:w-80 md:border-b-0 md:border-r md:py-8">
+        {/* Left Sidebar */}
+        <div className="h-full overflow-y-auto border-b border-slate-100 bg-white py-4 md:border-b-0 md:border-r md:py-8">
           <div className="px-6 mb-4">
             <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400">
               Timeline
@@ -247,7 +223,8 @@ export default function ExperienceSection() {
         </div>
 
         {/* Right Content Area */}
-        <div className="flex-1 bg-white p-6 md:p-12">
+        {/* Note: In Grid, this naturally fills the 1fr column space */}
+        <div className="h-full overflow-y-auto bg-white p-6 md:p-12">
           <DetailView job={activeJob} />
         </div>
       </div>

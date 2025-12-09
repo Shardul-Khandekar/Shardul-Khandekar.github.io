@@ -6,41 +6,18 @@ import ProjectsSection from "./components/ProjectsSection";
 import Publications from "./components/Publications";
 import Contact from "./components/Contact";
 
-/** * NEW COMPONENT: GeometricShapes
- * Renders Google-style primitives with a "Tech Glass" material.
- * They are positioned absolutely on the sides to fill the empty space.
- */
 function GeometricShapes() {
   return (
     <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-      
-      {/* 1. Top Left - The "Google Blue" Circle */}
-      {/* A perfect circle, blurred heavily to look like a distant planet/cloud */}
       <div className="absolute top-[10%] -left-[5%] w-72 h-72 bg-blue-400/20 rounded-full blur-3xl animate-float-slow mix-blend-multiply" />
-      
-      {/* 2. Top Right - The "Google Red" Squircle (Rounded Square) */}
-      {/* Positioned to balance the Hero text */}
       <div className="absolute top-[15%] -right-[5%] w-64 h-64 bg-red-400/20 rounded-[3rem] blur-3xl animate-float-medium mix-blend-multiply rotate-12" />
-
-      {/* 3. Middle Left - The "Google Yellow" Triangle (Abstract) */}
-      {/* We use a clip-path or just a rotated square to simulate geometry */}
       <div className="absolute top-[45%] left-[2%] w-48 h-48 bg-yellow-400/20 rounded-3xl blur-2xl animate-float-fast mix-blend-multiply -rotate-45" />
-
-      {/* 4. Bottom Right - The "Google Green" Pill */}
-      {/* Fills the space near contact/projects */}
       <div className="absolute bottom-[10%] right-[2%] w-80 h-80 bg-green-400/20 rounded-full blur-3xl animate-float-slow mix-blend-multiply" />
-      
-      {/* 5. Center Deep - A subtle anchor */}
-      {/* Very faint purple to add depth to the center */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-slate-200/30 rounded-full blur-[100px] opacity-50" />
-      
     </div>
   );
 }
 
-/** * UPDATED BackgroundGrid 
- * We removed the old "Glow" divs because GeometricShapes replaces them.
- */
 function BackgroundGrid() {
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
@@ -51,6 +28,7 @@ function BackgroundGrid() {
   );
 }
 
+/** UPDATED SIDE NAV LOGIC */
 function SideNav() {
   const [activeSection, setActiveSection] = useState("top");
   const SECTIONS = [
@@ -63,7 +41,16 @@ function SideNav() {
 
   useEffect(() => {
     const handleScroll = () => {
+      // 1. Bottom of Page Detection (The Fix)
+      // If we are within 20px of the bottom, FORCE "contact" to be active.
+      if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 50) {
+        setActiveSection("contact");
+        return;
+      }
+
+      // 2. Standard Scroll Detection
       const scrollPosition = window.scrollY + 300;
+      
       for (const section of SECTIONS) {
         const element = document.getElementById(section.id);
         if (element) {
@@ -74,6 +61,7 @@ function SideNav() {
         }
       }
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -111,14 +99,8 @@ function SideNav() {
 export default function App() {
   return (
     <div className="relative min-h-screen bg-white selection:bg-blue-100 selection:text-blue-900">
-      
-      {/* 1. The Blueprint Grid */}
       <BackgroundGrid />
-      
-      {/* 2. The New Google Shapes (Glassmorphism) */}
       <GeometricShapes />
-      
-      {/* 3. Navigation */}
       <SideNav />
 
       <div className="relative z-10">
